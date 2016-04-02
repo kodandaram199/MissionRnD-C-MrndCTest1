@@ -23,6 +23,25 @@ Difficulty : Hard
 #include <stdio.h>
 #include <math.h>
 
+int date(struct node *date1head, struct node *date2head)
+{
+	int i;
+	for (i = 0; i<2; i++)
+	{
+
+		int day1 = (date1head->data) * 10 + (date1head->data);
+		int day2 = (date2head->data) * 10 + (date2head->data);
+		if (day1 < day2)
+			return day2 - day1;
+		else
+			return day1 - day2;
+		date1head = date1head->next;
+		date2head = date2head->next;
+
+			
+	}
+	
+}
 struct node{
 	int data;
 	struct node *next;
@@ -30,5 +49,7 @@ struct node{
 
 
 int between_days(struct node *date1head, struct node *date2head){
+	if (date1head==NULL || date2head== NULL)
 	return -1;
+	return date(date1head, date2head);
 }

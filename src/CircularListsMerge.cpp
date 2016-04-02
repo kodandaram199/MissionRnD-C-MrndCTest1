@@ -32,7 +32,85 @@ struct node{
 	int data;
 	struct node *next;
 };
+#include<stdio.h>
+#include<stdlib.h>
+
+/* structure for a node */
+struct node
+{
+	int data;
+	struct node *next;
+};
+
+struct node* sort(struct node *head)
+{
+	int swapped, i;
+	struct node *ptr1;
+	struct node *lptr = NULL;
+
+
+	if (ptr1 == NULL)
+		return;
+
+	do
+	{
+		swapped = 0;
+		ptr1 = head;
+
+		while (ptr1->next != lptr)
+		{
+			if (ptr1->data > ptr1->next->data)
+			{
+				swap(ptr1, ptr1->next);
+				swapped = 1;
+			}
+			ptr1 = ptr1->next;
+		}
+		lptr = ptr1;
+	} while (swapped);
+	return ptr1;
+}
+
+void swap(struct node *a, struct node *b)
+{
+	int temp = a->data;
+	a->data = b->data;
+	b->data = temp;
+}
+struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
+
+
+	struct node* result = NULL;
+
+	if (head1 == NULL)
+		return head2;
+	if (head2 == NULL)
+		return head1;
+	if (head1->data >= head2->data)
+	{
+		result = head2;
+		result->next = merge2LinkedLists(head1, head2->next);
+	}
+	else
+	{
+		result = head1;
+		result->next = merge2LinkedLists(head2, head1->next);
+	}
+	return result;
+}
 int merge_circularlists(struct node **head1, struct node **head2){
-	//Returns Length of merged Sorted circular SLL and also points *head1 to final SLL .
-	return -1;
+	
+	int len = 0;
+	
+	struct node* result = merge2LinkedLists(*head1, *head2);
+	result = sort(result);
+
+	while (result->next != 0)
+	{
+		result = result->next;
+		len++;
+	}
+
+
+	return len;
 }
